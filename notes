@@ -1,0 +1,9 @@
+ng add @ngrx/store
+
+ng add ngx-bootstrap -save
+
+ng add bootstrap
+
+npm i json-server
+
+npx json-server backend/db.json

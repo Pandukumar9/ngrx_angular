@@ -1,0 +1,48 @@
+<div class="card">
+  <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card 3">
+  <div class="card-body">
+    <h5 class="card-title">Observable == {{ user3}}</h5>
+    <h5 class="card-title">singaldata == {{ singaldata}}</h5>
+    <p class="card-text">This is a description for card 3. Add any content here.</p>
+    <a href="#" class="btn btn-primary">Read More</a>
+    <input type="text" class="form-control" [(ngModel)]="users">
+    <button type="button" class="btn-primary btn" (click)="savedata()">save</button>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Component C</h5>
+    <p>NGRX Shared Input: {{ sharedInput$ | async }}</p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Update Shared Input"
+      #userData
+    />
+    <button type="button" class="btn-primary btn" (click)="onInputChange(userData)">save</button>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">API Data</h5>
+
+    <!-- Loading indicator -->
+    <p *ngIf="loading$ | async">Loading...</p>
+
+    <!-- Error message -->
+    <p *ngIf="error$ | async" class="text-danger">{{ error$ | async }}</p>
+
+    <!-- API data -->
+    <ul *ngIf="apiData$ | async as ApiUserData">
+      <li *ngFor="let item of apiData$ | async">
+        {{ item.username ? item.username.toLowerCase() : 'No Name Available' }}
+      </li>
+    </ul>
+
+    <button class="btn btn-primary" (click)="onFetchData()">Fetch Data</button>
+  </div>
+</div>
