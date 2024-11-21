@@ -2,7 +2,7 @@
   <div class="row">
     <!-- Form Section -->
     <div class="col-md-12">
-      <h2>{{ userToEdit ? 'Edit User' : 'Add User' }}</h2>
+      <h2>{{ btnTitle }}</h2>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <!-- Username -->
         <div class="mb-3">
@@ -47,8 +47,8 @@
           </div>
         </div>
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-          {{ userToEdit ? 'Update User' : 'Add User' }}
+        <button *ngIf="btnTitle != 'View User'" type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+          {{ btnTitle }}
         </button>
       </form>
     </div>

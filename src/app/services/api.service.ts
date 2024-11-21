@@ -43,8 +43,8 @@ export class ApiService {
     this.store.dispatch(addApiData({ apiUrl: this.url, newData: newUser }));
   }
 
-  updateData(updatedData: any) {
-    this.store.dispatch(editApiData({ apiUrl: this.url, id: updatedData.id, exitData: updatedData }));
+  updateData(updatedData: any,updateId:any) {
+    this.store.dispatch(editApiData({ apiUrl: this.url, id: updateId, exitData: updatedData }));
   }
 
   deleteData(existdataId: number) {

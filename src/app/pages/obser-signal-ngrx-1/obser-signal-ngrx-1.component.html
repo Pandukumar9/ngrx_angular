@@ -1,19 +1,16 @@
 <div class="card">
-  <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card 1">
   <div class="card-body">
 
     <h5 class="card-title">Observable == {{ user1 }}</h5>
 
     <h5 class="card-title">singaldata == {{ singaldata}}</h5>
 
-    <p class="card-text">This is a description for card 1. Add any content here.</p>
-    <a href="#" class="btn btn-primary">Read More</a>
-    <input type="text" class="form-control" [(ngModel)]="users">
-    <button type="button" class="btn-primary btn" (click)="savedata()">save</button>
+    <input type="text" class="form-control" placeholder="Enter anything here" [(ngModel)]="users">
+    <button type="button" class="btn-primary btn mt-2" (click)="savedata()">save</button>
   </div>
 </div>
 
-<div class="card">
+<div class="card mb-3 mt-3">
   <div class="card-body">
     <h5 class="card-title">Component A</h5>
     <p>NGRX Shared Input: {{ sharedInput$ | async }}</p>
@@ -23,7 +20,7 @@
       placeholder="Update Shared Input"
       #userData
     />
-    <button type="button" class="btn-primary btn" (click)="onInputChange(userData)">save</button>
+    <button type="button" class="btn-primary btn mt-2" (click)="onInputChange(userData)">save</button>
   </div>
 </div>
 
@@ -38,13 +35,18 @@
     <p *ngIf="error$ | async" class="text-danger">{{ error$ | async }}</p>
 
     <!-- API data -->
-    <ul *ngIf="apiData$ | async as ApiUserData">
-      <li *ngFor="let item of apiData$ | async">
-        {{ item.username ? item.username.toLowerCase() : 'No Name Available' }}
+    <ul *ngIf="apiData$ | async as apiData" class="list-group">
+      <li *ngFor="let item of apiData" class="list-group-item">
+        <span *ngIf="item.username; else noName">
+          {{ item.username.toLowerCase() }} => {{ item.email.toLowerCase() }}
+        </span>
+        <ng-template #noName>
+          <em>No Name Available</em>
+        </ng-template>
       </li>
     </ul>
 
-    <button class="btn btn-primary" (click)="onFetchData()">Fetch Data</button>
+    <button class="btn btn-primary mt-3" (click)="onFetchData()">Fetch Data</button>
   </div>
 </div>
 

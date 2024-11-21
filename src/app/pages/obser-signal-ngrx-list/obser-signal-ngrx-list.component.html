@@ -2,12 +2,13 @@
   <div class="card-body">
     <div class="col-md-12">
       <h2>User List</h2>
-      <button (click)="addUser()" class="btn btn-primary">Add user</button>
+      <button (click)="addUser()" class="btn btn-primary mb-3">Add user</button>
       <div *ngIf="loading$ | async" class="text-center">Loading...</div>
       <div *ngIf="error$ | async as error" class="alert alert-danger">{{ error }}</div>
       <table *ngIf="!(loading$ | async) && !(error$ | async)" class="table table-bordered">
         <thead>
           <tr>
+            <th>S.NO</th>
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
@@ -16,14 +17,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of apiData$ | async">
+          <tr *ngFor="let user of apiData$ | async;let i = index">
+            <td>{{ i + 1 }}</td>
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.mobile }}</td>
             <td>
-              <button class="btn btn-sm btn-warning" (click)="onEdit(user)">Edit</button>
-              <button class="btn btn-sm btn-danger" (click)="onDelete(user.id)">Delete</button>
+              <button class="btn btn-sm btn-warning" (click)="onEdit(user)">Edit</button>&nbsp;&nbsp;
+              <button class="btn btn-sm btn-danger" (click)="onDelete(user.id,user.username)">Delete</button>&nbsp;&nbsp;
+              <button class="btn btn-sm btn-success" (click)="onView(user)">View</button>
             </td>
           </tr>
         </tbody>

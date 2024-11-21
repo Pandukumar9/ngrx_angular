@@ -8,17 +8,20 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './reuse-dialog.component.html',
   styleUrls: ['./reuse-dialog.component.scss']
 })
-export class ReuseDialogComponent {
+export class ReuseDialogComponent implements OnInit {
   constructor(private api:ApiService,private fb: FormBuilder,public bsModalRef: BsModalRef){
   }
 
-  userdata:any
+  userdata:any;
+  btnTitle:any;
   apiData$ = this.api.apiData$;
   loading$ = this.api.loading$;
   error$ = this.api.error$;
-  title?: string; // Title passed from parent
+
+
   ngOnInit() {
     this.initiateForm();
+    this.btnTitle == "View User"?  this.userForm.disable() : '';
   }
 
   initiateForm(){
@@ -28,23 +31,22 @@ export class ReuseDialogComponent {
       mobile: [this.userdata?.mobile? this.userdata?.mobile :'', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     });
   }
+
   userForm!: FormGroup;
   userToEdit: any = null;
+
    onSubmit() {
      if (this.userForm.valid) {
-       this.api.addData(this.userForm.value);
-       this.bsModalRef.hide(); // Close modal
-       this.userForm.reset();
+      if(this.userToEdit){
+        this.api.updateData(this.userForm.value,this.userdata.id);
+        this.bsModalRef.hide(); // Close modal
+        this.userForm.reset();
+      }else{
+        this.api.addData(this.userForm.value);
+        this.bsModalRef.hide(); // Close modal
+        this.userForm.reset();
+      }
      }
    }
 
-   onEdit(edituser:any){
-         // Edit user
-         this.api.updateData(edituser);
-         // this.userToEdit = null;
-   }
-
-   onDelete(data:any){
-
-   }
 }
